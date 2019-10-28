@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<form>
+
+<form action="{{ path('login')}}"method="POST">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" requiered name="_email" value="{{ last_username }}" placeholder="Enter email">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" requiered name="_password" placeholder="Password">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+
+
+{% endblock %}
