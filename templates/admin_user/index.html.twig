@@ -1,0 +1,53 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 4px 10px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ title }}</h1>
+<table class="table">
+       <tr>
+       <td>Prénom</td>
+       <td>Nom</td>
+       <td>Email</td>
+       <td>Adresse</td>
+       <td>Code postal</td>
+       <td>Ville</td>
+       <td>Pays</td>
+       <td>Téléphone</td>
+       <td>Mettre à jour</td>
+       <td>Supprimer</td>
+       </tr>
+
+ {% for user in users %}
+        <tr>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.zipcode }}</td>
+         <td>{{ user.city }}</td>
+        <td>{{ user.country }}</td>
+        <td>
+      <a href="{{ path('admin_user_create', {'id': user.id}) }}" class="btn btn-primary"> Mettre à jour</a>
+      </td>
+      </td>
+      <td>
+      <a href="{{ path('admin_user_delete', {'id': user.id}) }}" class="btn btn-danger btn-delete"> Supprimer</a>
+      </td>
+        </tr>    
+ {% endfor %}
+
+</table>
+
+    <a href="{{ path('admin_user_create')}}" class="btn btn-primary">Ajouter un utilisateur</a>
+    
+      
+ 
+{% endblock %}
