@@ -28,10 +28,11 @@ class CurrencyRate
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Currency", inversedBy="currencyRate", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Currency", inversedBy="currencyRates")
      * @ORM\JoinColumn(nullable=false)
      */
     private $currency;
+
 
     public function getId(): ?int
     {
@@ -67,10 +68,11 @@ class CurrencyRate
         return $this->currency;
     }
 
-    public function setCurrency(Currency $currency): self
+    public function setCurrency(?Currency $currency): self
     {
         $this->currency = $currency;
 
         return $this;
     }
+
 }

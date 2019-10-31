@@ -1,0 +1,38 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 4px 10px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ title }}</h1>
+<table class="table">
+       <tr>
+       <td>Crypto monnaies</td>
+       <td>Cours</td>
+       </tr>
+
+ {% for currency in currency %}
+        <tr>
+        <td>{{currency.name }}</td>
+        <td>{{currencyrate.price}}</td>
+        </tr>    
+ {% endfor %}
+
+</table>
+
+    
+      
+ 
+{% endblock %}
+
+
+ 
+
+
+ 

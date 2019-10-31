@@ -237,6 +237,7 @@ class User implements UserInterface
      public function getSalt() {}
 
      public function getRoles() {
+         return [$this->role];
      }
 
      /**
