@@ -24,7 +24,7 @@ class UserType extends AbstractType
             ->add('city',TextType::class, ['label'=>'Ville'])
             ->add('country',TextType::class, ['label'=>'Pays'])
             ->add('phoneNumber',NumberType::class, ['label'=>'Téléphone'])
-            ->add('role', ChoiceType::class, ['choices'=> ['Administrateur' => 'Administrateur', 'Client'=> 'Client',]])
+            ->add('role', ChoiceType::class, ['choices'=> ['Administrateur' => 'ROLE_ADMIN', 'Client'=> 'ROLE_USER',]])
             ->add('password', PasswordType::class,  ['label'=>'Mot de Passe'])
         ;
     }

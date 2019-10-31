@@ -23,10 +23,6 @@ class Currency
      */
     private $name;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CurrencyRate", mappedBy="currency", cascade={"persist", "remove"})
-     */
-    private $currencyRate;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="currency", cascade={"persist", "remove"})
@@ -38,9 +34,15 @@ class Currency
      */
     private $userCurrencies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrencyRate", mappedBy="currency")
+     */
+    private $currencyRates;
+
     public function __construct()
     {
         $this->userCurrencies = new ArrayCollection();
+        $this->currencyRates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,18 +65,6 @@ class Currency
     public function getCurrencyRate(): ?CurrencyRate
     {
         return $this->currencyRate;
-    }
-
-    public function setCurrencyRate(CurrencyRate $currencyRate): self
-    {
-        $this->currencyRate = $currencyRate;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $currencyRate->getCurrency()) {
-            $currencyRate->setCurrency($this);
-        }
-
-        return $this;
     }
 
     public function getTransaction(): ?Transaction
@@ -119,6 +109,37 @@ class Currency
             // set the owning side to null (unless already changed)
             if ($userCurrency->getCurrency() === $this) {
                 $userCurrency->setCurrency(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CurrencyRate[]
+     */
+    public function getCurrencyRates(): Collection
+    {
+        return $this->currencyRates;
+    }
+
+    public function addCurrencyRate(CurrencyRate $currencyRate): self
+    {
+        if (!$this->currencyRates->contains($currencyRate)) {
+            $this->currencyRates[] = $currencyRate;
+            $currencyRate->setCurrency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurrencyRate(CurrencyRate $currencyRate): self
+    {
+        if ($this->currencyRates->contains($currencyRate)) {
+            $this->currencyRates->removeElement($currencyRate);
+            // set the owning side to null (unless already changed)
+            if ($currencyRate->getCurrency() === $this) {
+                $currencyRate->setCurrency(null);
             }
         }
 

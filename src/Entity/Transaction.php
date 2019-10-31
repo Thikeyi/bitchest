@@ -22,11 +22,6 @@ class Transaction
     private $transactionDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $transactionNumber;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $quantity;
@@ -46,10 +41,6 @@ class Transaction
      */
     private $type;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Currency", inversedBy="transaction", cascade={"persist", "remove"})
@@ -62,6 +53,11 @@ class Transaction
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    public function __construct()
+    {
+        $this->transactionDate = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -76,18 +72,6 @@ class Transaction
     public function setTransactionDate(\DateTimeInterface $transactionDate): self
     {
         $this->transactionDate = $transactionDate;
-
-        return $this;
-    }
-
-    public function getTransactionNumber(): ?string
-    {
-        return $this->transactionNumber;
-    }
-
-    public function setTransactionNumber(string $transactionNumber): self
-    {
-        $this->transactionNumber = $transactionNumber;
 
         return $this;
     }
@@ -136,18 +120,6 @@ class Transaction
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminUserController extends AbstractController
 {
@@ -28,7 +29,7 @@ class AdminUserController extends AbstractController
      * @Route("/edition/{id}", defaults={"id": null}, requirements={"id": "\d+"}, name="admin_user_create")
      * 
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request,  UserPasswordEncoderInterface $encoder, $id)
     {
         $em = $this->getDoctrine()->getManager();
         if (is_null($id)) { 
@@ -46,12 +47,13 @@ class AdminUserController extends AbstractController
       
         if ($form->isSubmitted()) {
         if ($form->isValid()) {
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $em->persist($user);
             $em->flush();
 
             $this->addFlash('success', 'L\'utilisateur est enregistré');
 
-            return $this->redirectToRoute('admin_user/index.html.twig');
+            return $this->redirectToRoute('admin_user');
 
             } else {
                
@@ -73,16 +75,11 @@ class AdminUserController extends AbstractController
     public function delete(User $user)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$user->getUsers()->isEmpty()) {
-            $this->addFlash(
-                'error',
-                'L\'utilisateur ne peut être supprimé'
-            );
-        } else {
+
             $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'L\'utilisateur est supprimé');
-        }
-        return $this->redirectToRoute('admin_user/index.html.twig');
+        
+        return $this->redirectToRoute('admin_user');
     }
 }
