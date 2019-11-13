@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Form\UserType;
 use App\Entity\User;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminUserController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/admin/user", name="admin_user")
      */
     public function index()
     {
+        // Liste des utilisateurs dans un tableau HTML géré par les Admins
+
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
         return $this->render('admin_user/index.html.twig', [
@@ -29,10 +33,12 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("/edition/{id}", defaults={"id": null}, requirements={"id": "\d+"}, name="admin_user_create")
-     * 
+     *
      */
     public function edit(Request $request,  UserPasswordEncoderInterface $encoder, $id)
     {
+        // Ajoute et modifie les données d'un utilisateur via le formulaire
+
         $em = $this->getDoctrine()->getManager();
         if (is_null($id)) { 
             $user = new User();
@@ -76,6 +82,8 @@ class AdminUserController extends AbstractController
      */
     public function delete(User $user)
     {
+        //Supprime un utilisateur
+
         $em = $this->getDoctrine()->getManager();
 
             $em->remove($user);

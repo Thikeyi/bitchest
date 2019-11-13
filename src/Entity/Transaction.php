@@ -43,7 +43,7 @@ class Transaction
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Currency", inversedBy="transaction", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Currency", inversedBy="transaction", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $currency;

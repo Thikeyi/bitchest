@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Historique</h1>
+    <table class="table">
+        <tr>
+            <td>Date</td>
+            <td>Monnaie</td>
+            <td>Type</td>
+            <td>Prix</td>
+            <td>Quantité</td>
+            <td>Montant</td>
+        </tr>
+
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.transactionDate|date('d/m/Y') }}</td>
+                <td>{{ transaction.currency.name }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.price }} €</td>
+                <td>{{ transaction.quantity}}</td>
+                <td>{{ transaction.amount }}  €</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
+
+
+

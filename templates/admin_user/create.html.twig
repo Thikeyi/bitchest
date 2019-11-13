@@ -6,11 +6,21 @@
     <h1> Edition </h1>
     
         {{ form_start(form) }}
-        
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email)}}
+        {{ form_row(form.address)}}
+        {{ form_row(form.zipcode)}}
+        {{ form_row(form.city) }}
+         {{ form_row(form.country)}}
+        {{ form_row(form.phoneNumber)}}
+        {{ form_row(form.role) }}
+        {{ form_row(form.password)}}
 
         <button type="submit" class="btn btn-primary">
-            Créer
-        </button>  
+            Enregistrer
+        </button>
+        <a class="btn btn-info" href="{{ path('admin_user') }}">Retour</a>
 
 {{ form_end(form) }}
 

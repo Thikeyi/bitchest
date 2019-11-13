@@ -23,9 +23,13 @@ class Currency
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $logo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="currency", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="currency", cascade={"persist", "remove"})
      */
     private $transaction;
 
@@ -38,6 +42,11 @@ class Currency
      * @ORM\OneToMany(targetEntity="App\Entity\CurrencyRate", mappedBy="currency")
      */
     private $currencyRates;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
 
     public function __construct()
     {
@@ -145,4 +154,37 @@ class Currency
 
         return $this;
     }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     * @return Currency
+     */
+    public function setLogo(string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+
 }

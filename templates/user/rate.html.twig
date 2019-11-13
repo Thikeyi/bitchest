@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Variation de la monnaie {{ currency.name }}</h1>
+    <table class="table">
+        <tr>
+            <td>Date</td>
+            <td>Prix</td>
+
+
+        </tr>
+
+        {% for rate in rates %}
+            <tr>
+                <td>{{ rate.date|date('d/m/Y') }}</td>
+                <td>{{ rate.price }} €</td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+
+    <p><a href="{{ path('user') }}" class="btn btn-info">Retour</a></p>
+
+    <pre>
+{{ json_rates }}
+    </pre>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script>
+        var rates = {{ json_rates|raw }};
+
+        //rates
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: rates
+        });
+    </script>
+    <!-- script src="{{ asset('js/rates.js') }}"></script -->
+
+
+{% endblock %}

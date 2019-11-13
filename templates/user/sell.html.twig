@@ -1,0 +1,17 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+    <h1>Vente de {{ userCurrency.currency.name }}</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Quantité</label>
+            <select  class="form-control">
+
+                    <option>{{ userCurrency.quantity  }}</option>
+
+            </select>
+        </div>
+    </form>
+
+{% endblock %}

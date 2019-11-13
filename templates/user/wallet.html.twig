@@ -1,0 +1,30 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+    <h1>Portefeuille</h1>
+
+    <table class="table">
+        <tr>
+            <th>Monnaie</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+
+        {% for userCurrency in wallet %}
+        <tr>
+
+            <td>{{ userCurrency.currency.name }}</td>
+            <td>{{ userCurrency.quantity }}</td>
+            <td>{{ userCurrency.currency.price }} €</td>
+            <td>{{ userCurrency.currency.price * userCurrency.quantity }}  €</td>
+            <td><a class="btn btn-primary" href="{{ path('user_sell', {id: userCurrency.id }) }}">Vendre</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>Solde: {{ balance }}  €</p>
+
+
+{% endblock %}

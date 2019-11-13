@@ -1,14 +1,45 @@
-{% extends'base.html.twig' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Crypto monnaies{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 4px 10px; }
+</style>
 
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+<div class="example-wrapper">
+    <h1>{{ title }}</h1>
+    <table class="table">
+        <tr>
+            <td>Crypto monnaies</td>
+            <td>Cours</td>
+            <th></th>
+        </tr>
+
+        {% for currency in currencies %}
+            <tr>
+                <td><img src="{{ asset('images/' ~ currency.logo) }}"> {{ currency.name }}</td>
+                <td>{{ currency.price }}  €</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('user_buy', {id: currency.id }) }}">Acheter</a>
+                    <a class="btn btn-info" href="{{ path('user_rate', {id: currency.id }) }}">Cours</a>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+
+    {% endblock %}
+
+
  
-        <button type="submit" class="btn btn-primary">
-            Enregistrer
-        </button>
-   
-    
-{% endblock %}
+
+
+ 

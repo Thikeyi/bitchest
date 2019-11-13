@@ -19,7 +19,9 @@ class TransactionType extends AbstractType
             ->add('quantity',NumberType::class, ['label'=>'Quantité'])
             ->add('type',ChoiceType::class, ['choices'=> ['Achat' => 'Achat', 'Vente'=> 'Vente',]])
             ->add('currency',TextType::class, ['label'=>'Cryptomonnaie'])
-            ->add('user',TextType::class, ['label'=>'Cryptomonnaie'])
+
+            
+
         ;
     }
 
