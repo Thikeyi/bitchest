@@ -4,30 +4,20 @@
     <h1>Variation de la monnaie {{ currency.name }}</h1>
     <table class="table">
         <tr>
-            <td>Date</td>
-            <td>Prix</td>
-
-
+            <th>Date</th>
+            <th>Prix</th>
         </tr>
 
         {% for rate in rates %}
             <tr>
                 <td>{{ rate.date|date('d/m/Y') }}</td>
                 <td>{{ rate.price }} €</td>
-
             </tr>
         {% endfor %}
-
     </table>
+
     <canvas id="myChart" width="400" height="200"></canvas>
-
-
     <p><a href="{{ path('user') }}" class="btn btn-info">Retour</a></p>
-
-    <pre>
-{{ json_rates }}
-    </pre>
-
 {% endblock %}
 
 {% block stylesheets %}
@@ -50,7 +40,4 @@
             data: rates
         });
     </script>
-    <!-- script src="{{ asset('js/rates.js') }}"></script -->
-
-
 {% endblock %}

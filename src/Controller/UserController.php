@@ -86,7 +86,7 @@ class UserController extends AbstractController
         $manager->persist($transaction);
         $manager->remove($userCurrency);
         $manager->flush();
-        $this->addFlash('success', 'Vente réalisée avec succès!');
+        $this->addFlash('success', 'Vente réalisée avec succès');
 
 
         return $this->redirectToRoute('user_wallet');
@@ -143,7 +143,7 @@ class UserController extends AbstractController
                 $manager->persist($userCurrency);
                 $manager->persist($transaction);
                 $manager->flush();
-                $this->addFlash('success', 'Transaction réussie !');
+                $this->addFlash('success', 'Transaction réussie ');
 
             return $this->redirectToRoute('user_wallet');
 
@@ -181,16 +181,7 @@ class UserController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(CurrencyRate::class);
         $rates = $repository->findBy(['currency' => $currency], ['date' => 'ASC']);
 
-        /*
-        data: {
-        labels: ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin Cash', 'Cardano', 'Litecoin', 'NEM', 'Stellar', 'IOTA', 'Dash'],
 
-        datasets: [{
-            label: 'Cours',
-            data: [12, 19, 3, 5, 2, 3],
-        }]
-    }
-         */
 
         $data = ['labels' => [], 'datasets' => []];
 
